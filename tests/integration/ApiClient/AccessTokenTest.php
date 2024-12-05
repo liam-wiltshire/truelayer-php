@@ -158,7 +158,6 @@ use TrueLayer\Tests\Integration\Mocks;
     $cacheMock1->shouldHaveReceived('get', function (...$args) use (&$cacheKey1, &$cacheDefaultValue) {
         $cacheKey1 = $args[0];
         $cacheDefaultValue = $args[1];
-
         return true;
     });
     \expect($cacheKey1)->toBeString();
@@ -207,7 +206,6 @@ use TrueLayer\Tests\Integration\Mocks;
     $cacheMock1->shouldHaveReceived('get', function (...$args) use (&$cacheKey1, &$cacheDefaultValue) {
         $cacheKey1 = $args[0];
         $cacheDefaultValue = $args[1];
-
         return true;
     });
     \expect($cacheKey1)->toBeString();
@@ -256,7 +254,6 @@ use TrueLayer\Tests\Integration\Mocks;
     $cacheMock1->shouldHaveReceived('get', function (...$args) use (&$cacheKey1, &$cacheDefaultValue) {
         $cacheKey1 = $args[0];
         $cacheDefaultValue = $args[1];
-
         return true;
     });
     \expect($cacheKey1)->toBeString();

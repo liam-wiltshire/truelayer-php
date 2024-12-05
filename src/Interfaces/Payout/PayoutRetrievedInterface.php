@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TrueLayer\Interfaces\Payout;
 
 use TrueLayer\Interfaces\HasAttributesInterface;
-use TrueLayer\Interfaces\Payout\Beneficiary\BeneficiaryInterface;
 
 interface PayoutRetrievedInterface extends HasAttributesInterface
 {
@@ -30,14 +29,9 @@ interface PayoutRetrievedInterface extends HasAttributesInterface
     public function getCurrency(): string;
 
     /**
-     * @return BeneficiaryInterface
+     * @return PayoutBeneficiaryInterface
      */
-    public function getBeneficiary(): BeneficiaryInterface;
-
-    /**
-     * @return array<string, string>
-     */
-    public function getMetadata(): array;
+    public function getBeneficiary(): PayoutBeneficiaryInterface;
 
     /**
      * @return string

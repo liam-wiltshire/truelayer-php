@@ -12,13 +12,13 @@ use TrueLayer\Exceptions\SignerException;
 use TrueLayer\Factories\WebhookFactory;
 use TrueLayer\Interfaces\AccountIdentifier\AccountIdentifierBuilderInterface;
 use TrueLayer\Interfaces\ApiClient\ApiClientInterface;
+use TrueLayer\Interfaces\Beneficiary\BeneficiaryBuilderInterface;
 use TrueLayer\Interfaces\Client\ClientInterface;
 use TrueLayer\Interfaces\Configuration\ClientConfigInterface;
 use TrueLayer\Interfaces\Factories\ApiFactoryInterface;
 use TrueLayer\Interfaces\Factories\EntityFactoryInterface;
 use TrueLayer\Interfaces\HppInterface;
 use TrueLayer\Interfaces\MerchantAccount\MerchantAccountInterface;
-use TrueLayer\Interfaces\Payment\Beneficiary\BeneficiaryBuilderInterface;
 use TrueLayer\Interfaces\Payment\AuthorizationFlow\AuthorizationFlowAuthorizingInterface;
 use TrueLayer\Interfaces\Payment\AuthorizationFlow\AuthorizationFlowResponseInterface;
 use TrueLayer\Interfaces\Payment\PaymentCreatedInterface;
@@ -36,7 +36,7 @@ use TrueLayer\Interfaces\Provider\ProviderSelectionBuilderInterface;
 use TrueLayer\Interfaces\Remitter\RemitterInterface;
 use TrueLayer\Interfaces\Remitter\RemitterVerification\RemitterVerificationBuilderInterface;
 use TrueLayer\Interfaces\RequestOptionsInterface;
-use TrueLayer\Interfaces\Payment\Scheme\SchemeSelectionBuilderInterface;
+use TrueLayer\Interfaces\Scheme\SchemeSelectionBuilderInterface;
 use TrueLayer\Interfaces\UserInterface;
 use TrueLayer\Interfaces\Webhook\WebhookInterface;
 use TrueLayer\Services\Util\PaymentId;
@@ -73,7 +73,7 @@ final class Client implements ClientInterface
         ApiClientInterface $apiClient,
         ApiFactoryInterface $apiFactory,
         EntityFactoryInterface $entityFactory,
-        ClientConfigInterface $config,
+        ClientConfigInterface $config
     ) {
         $this->apiClient = $apiClient;
         $this->apiFactory = $apiFactory;
@@ -352,16 +352,11 @@ final class Client implements ClientInterface
     /**
      * @throws InvalidArgumentException
      *
-     * @return Payout\Beneficiary\BeneficiaryBuilderInterface
+     * @return Payout\BeneficiaryBuilderInterface
      */
-    public function payoutBeneficiary(): Payout\Beneficiary\BeneficiaryBuilderInterface
+    public function payoutBeneficiary(): Payout\BeneficiaryBuilderInterface
     {
-        return $this->entityFactory->make(Payout\Beneficiary\BeneficiaryBuilderInterface::class);
-    }
-
-    public function payoutSchemeSelection(): Payout\Scheme\SchemeSelectionBuilderInterface
-    {
-        return $this->entityFactory->make(Payout\Scheme\SchemeSelectionBuilderInterface::class);
+        return $this->entityFactory->make(Payout\BeneficiaryBuilderInterface::class);
     }
 
     public function getPayout(string $id): PayoutRetrievedInterface

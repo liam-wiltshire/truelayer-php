@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TrueLayer\Interfaces\Webhook;
 
+use TrueLayer\Interfaces\Webhook\PaymentMethod\PaymentMethodInterface;
+
 interface PaymentEventInterface extends EventInterface
 {
     /**
@@ -14,9 +16,11 @@ interface PaymentEventInterface extends EventInterface
     public function getPaymentId(): string;
 
     /**
-     * Get the metadata associated with the payment.
+     * Get the method of the payment. T
+     * ype can be "mandate" or "bank_transfer".
+     * Mandates contain mandate_id and bank transfers contain provider_id and scheme_id, if available.
      *
-     * @return array<string, string>
+     * @return PaymentMethodInterface
      */
-    public function getMetadata(): array;
+    public function getPaymentMethod(): PaymentMethodInterface;
 }

@@ -14,11 +14,6 @@ class RefundExecutedEvent extends RefundEvent implements RefundExecutedEventInte
     protected \DateTimeInterface $executedAt;
 
     /**
-     * @var string
-     */
-    protected string $schemeId;
-
-    /**
      * @return mixed[]
      */
     protected function casts(): array
@@ -35,7 +30,6 @@ class RefundExecutedEvent extends RefundEvent implements RefundExecutedEventInte
     {
         return \array_merge(parent::arrayFields(), [
             'executed_at',
-            'scheme_id',
         ]);
     }
 
@@ -45,13 +39,5 @@ class RefundExecutedEvent extends RefundEvent implements RefundExecutedEventInte
     public function getExecutedAt(): \DateTimeInterface
     {
         return $this->executedAt;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSchemeId(): ?string
-    {
-        return $this->schemeId ?? null;
     }
 }

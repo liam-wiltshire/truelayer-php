@@ -44,10 +44,10 @@ return [
         AccountIdentifierTypes::BBAN => Interfaces\AccountIdentifier\BbanInterface::class,
         AccountIdentifierTypes::NRB => Interfaces\AccountIdentifier\NrbInterface::class,
     ],
-    Interfaces\Payment\Beneficiary\BeneficiaryInterface::class => [
+    Interfaces\Beneficiary\BeneficiaryInterface::class => [
         'discriminate_on' => 'type',
-        BeneficiaryTypes::EXTERNAL_ACCOUNT => Interfaces\Payment\Beneficiary\ExternalAccountBeneficiaryInterface::class,
-        BeneficiaryTypes::MERCHANT_ACCOUNT => Interfaces\Payment\Beneficiary\MerchantBeneficiaryInterface::class,
+        BeneficiaryTypes::EXTERNAL_ACCOUNT => Interfaces\Beneficiary\ExternalAccountBeneficiaryInterface::class,
+        BeneficiaryTypes::MERCHANT_ACCOUNT => Interfaces\Beneficiary\MerchantBeneficiaryInterface::class,
     ],
     Interfaces\PaymentMethod\PaymentMethodInterface::class => [
         'discriminate_on' => 'type',
@@ -58,24 +58,18 @@ return [
         PaymentMethods::PROVIDER_TYPE_USER_SELECTION => Interfaces\Provider\UserSelectedProviderSelectionInterface::class,
         PaymentMethods::PROVIDER_TYPE_PRESELECTED => Interfaces\Provider\PreselectedProviderSelectionInterface::class,
     ],
-    Interfaces\Payment\Scheme\SchemeSelectionInterface::class => [
+    Interfaces\Scheme\SchemeSelectionInterface::class => [
         'discriminate_on' => 'type',
-        SchemeSelectionTypes::INSTANT_ONLY => Interfaces\Payment\Scheme\InstantOnlySchemeSelectionInterface::class,
-        SchemeSelectionTypes::INSTANT_PREFERRED => Interfaces\Payment\Scheme\InstantPreferredSchemeSelectionInterface::class,
-        SchemeSelectionTypes::USER_SELECTED => Interfaces\Payment\Scheme\UserSelectedSchemeSelectionInterface::class,
-        SchemeSelectionTypes::PRESELECTED => Interfaces\Payment\Scheme\PreselectedSchemeSelectionInterface::class,
+        SchemeSelectionTypes::INSTANT_ONLY => Interfaces\Scheme\InstantOnlySchemeSelectionInterface::class,
+        SchemeSelectionTypes::INSTANT_PREFERRED => Interfaces\Scheme\InstantPreferredSchemeSelectionInterface::class,
+        SchemeSelectionTypes::USER_SELECTED => Interfaces\Scheme\UserSelectedSchemeSelectionInterface::class,
+        SchemeSelectionTypes::PRESELECTED => Interfaces\Scheme\PreselectedSchemeSelectionInterface::class,
     ],
-    Interfaces\Payout\Beneficiary\BeneficiaryInterface::class => [
+    Interfaces\Payout\PayoutBeneficiaryInterface::class => [
         'discriminate_on' => 'type',
-        BeneficiaryTypes::PAYMENT_SOURCE => Interfaces\Payout\Beneficiary\PaymentSourceBeneficiaryInterface::class,
-        BeneficiaryTypes::EXTERNAL_ACCOUNT => Interfaces\Payout\Beneficiary\ExternalAccountBeneficiaryInterface::class,
-        BeneficiaryTypes::BUSINESS_ACCOUNT => Interfaces\Payout\Beneficiary\BusinessAccountBeneficiaryInterface::class,
-    ],
-    Interfaces\Payout\Scheme\SchemeSelectionInterface::class => [
-        'discriminate_on' => 'type',
-        SchemeSelectionTypes::INSTANT_ONLY => Interfaces\Payout\Scheme\InstantOnlySchemeSelectionInterface::class,
-        SchemeSelectionTypes::INSTANT_PREFERRED => Interfaces\Payout\Scheme\InstantPreferredSchemeSelectionInterface::class,
-        SchemeSelectionTypes::PRESELECTED => Interfaces\Payout\Scheme\PreselectedSchemeSelectionInterface::class,
+        BeneficiaryTypes::PAYMENT_SOURCE => Interfaces\Payout\PaymentSourceBeneficiaryInterface::class,
+        BeneficiaryTypes::EXTERNAL_ACCOUNT => Interfaces\Beneficiary\ExternalAccountBeneficiaryInterface::class,
+        BeneficiaryTypes::BUSINESS_ACCOUNT => Interfaces\Payout\BusinessAccountBeneficiaryInterface::class,
     ],
     Interfaces\Payout\PayoutRetrievedInterface::class => [
         'discriminate_on' => 'status',
@@ -93,12 +87,9 @@ return [
     ],
     Interfaces\Webhook\EventInterface::class => [
         'discriminate_on' => 'type',
-        WebhookEventTypes::PAYMENT_AUTHORIZED => Interfaces\Webhook\PaymentAuthorizedEventInterface::class,
         WebhookEventTypes::PAYMENT_EXECUTED => Interfaces\Webhook\PaymentExecutedEventInterface::class,
-        WebhookEventTypes::PAYMENT_FAILED => Interfaces\Webhook\PaymentFailedEventInterface::class,
         WebhookEventTypes::PAYMENT_SETTLED => Interfaces\Webhook\PaymentSettledEventInterface::class,
-        WebhookEventTypes::PAYMENT_CREDITABLE => Interfaces\Webhook\PaymentCreditableEventInterface::class,
-        WebhookEventTypes::PAYMENT_SETTLEMENT_STALLED => Interfaces\Webhook\PaymentSettlementStalledEventInterface::class,
+        WebhookEventTypes::PAYMENT_FAILED => Interfaces\Webhook\PaymentFailedEventInterface::class,
         WebhookEventTypes::REFUND_EXECUTED => Interfaces\Webhook\RefundExecutedEventInterface::class,
         WebhookEventTypes::REFUND_FAILED => Interfaces\Webhook\RefundFailedEventInterface::class,
         WebhookEventTypes::PAYOUT_EXECUTED => Interfaces\Webhook\PayoutExecutedEventInterface::class,
@@ -113,7 +104,6 @@ return [
         'discriminate_on' => 'type',
         BeneficiaryTypes::PAYMENT_SOURCE => Interfaces\Webhook\Beneficiary\PaymentSourceBeneficiaryInterface::class,
         BeneficiaryTypes::BUSINESS_ACCOUNT => Interfaces\Webhook\Beneficiary\BusinessAccountBeneficiaryInterface::class,
-        BeneficiaryTypes::EXTERNAL_ACCOUNT => Interfaces\Webhook\Beneficiary\ExternalAccountBeneficiaryInterface::class,
     ],
     Interfaces\Remitter\RemitterVerification\RemitterVerificationInterface::class => [
         'discriminate_on' => 'type',

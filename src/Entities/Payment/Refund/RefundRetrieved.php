@@ -31,11 +31,6 @@ class RefundRetrieved extends Entity implements RefundRetrievedInterface
     protected string $reference;
 
     /**
-     * @var array<string, string>
-     */
-    protected array $metadata;
-
-    /**
      * @var string
      */
     protected string $status;
@@ -60,7 +55,6 @@ class RefundRetrieved extends Entity implements RefundRetrievedInterface
         'amount_in_minor',
         'currency',
         'reference',
-        'metadata',
         'status',
         'created_at',
     ];
@@ -95,14 +89,6 @@ class RefundRetrieved extends Entity implements RefundRetrievedInterface
     public function getReference(): string
     {
         return $this->reference;
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    public function getMetadata(): array
-    {
-        return $this->metadata ?? [];
     }
 
     /**

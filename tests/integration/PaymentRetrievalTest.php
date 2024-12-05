@@ -22,13 +22,13 @@ use TrueLayer\Interfaces\Payment\PaymentFailedInterface;
 use TrueLayer\Interfaces\Payment\PaymentRetrievedInterface;
 use TrueLayer\Interfaces\Payment\PaymentSettledInterface;
 use TrueLayer\Interfaces\Payment\PaymentSourceInterface;
-use TrueLayer\Interfaces\Payment\Scheme\InstantOnlySchemeSelectionInterface;
-use TrueLayer\Interfaces\Payment\Scheme\InstantPreferredSchemeSelectionInterface;
-use TrueLayer\Interfaces\Payment\Scheme\InstantSchemeSelectionInterface;
-use TrueLayer\Interfaces\Payment\Scheme\UserSelectedSchemeSelectionInterface;
 use TrueLayer\Interfaces\PaymentMethod\BankTransferPaymentMethodInterface;
 use TrueLayer\Interfaces\Provider\ProviderInterface;
 use TrueLayer\Interfaces\Provider\UserSelectedProviderSelectionInterface;
+use TrueLayer\Interfaces\Scheme\InstantOnlySchemeSelectionInterface;
+use TrueLayer\Interfaces\Scheme\InstantPreferredSchemeSelectionInterface;
+use TrueLayer\Interfaces\Scheme\InstantSchemeSelectionInterface;
+use TrueLayer\Interfaces\Scheme\UserSelectedSchemeSelectionInterface;
 use TrueLayer\Tests\Integration\Mocks\PaymentResponse;
 
 function assertPaymentCommon(PaymentRetrievedInterface $payment)
@@ -40,17 +40,6 @@ function assertPaymentCommon(PaymentRetrievedInterface $payment)
     \expect($payment->getAmountInMinor())->toBeInt();
     \expect($payment->getCreatedAt())->toBeInstanceOf(DateTimeInterface::class);
 }
-
-\it('handles payment cancellation', function () {
-    $client = \client([PaymentResponse::authorizationRequired(), PaymentResponse::cancelled(), PaymentResponse::failed()]);
-
-    $payment = $client->getPayment('1');
-    \assertPaymentCommon($payment);
-
-    $cancelledPayment = $payment->cancel();
-
-    \expect($cancelledPayment->isFailed())->toBeTrue();
-});
 
 \it('handles payment authorization required', function () {
     $payment = \client(PaymentResponse::authorizationRequired())->getPayment('1');

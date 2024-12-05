@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TrueLayer\Entities\Webhook;
 
 use TrueLayer\Interfaces\Payment\PaymentSourceInterface;
-use TrueLayer\Interfaces\Webhook\PaymentMethod\PaymentMethodInterface;
 use TrueLayer\Interfaces\Webhook\PaymentSettledEventInterface;
 
 class PaymentSettledEvent extends PaymentEvent implements PaymentSettledEventInterface
@@ -26,11 +25,6 @@ class PaymentSettledEvent extends PaymentEvent implements PaymentSettledEventInt
     protected PaymentSourceInterface $paymentSource;
 
     /**
-     * @var PaymentMethodInterface
-     */
-    protected PaymentMethodInterface $paymentMethod;
-
-    /**
      * @return mixed[]
      */
     protected function casts(): array
@@ -38,7 +32,6 @@ class PaymentSettledEvent extends PaymentEvent implements PaymentSettledEventInt
         return \array_merge_recursive(parent::casts(), [
             'settled_at' => \DateTimeInterface::class,
             'payment_source' => PaymentSourceInterface::class,
-            'payment_method' => PaymentMethodInterface::class,
         ]);
     }
 
@@ -51,7 +44,6 @@ class PaymentSettledEvent extends PaymentEvent implements PaymentSettledEventInt
             'settled_at',
             'settlement_risk.category' => 'settlement_risk_category',
             'payment_source',
-            'payment_method',
         ]);
     }
 
@@ -77,13 +69,5 @@ class PaymentSettledEvent extends PaymentEvent implements PaymentSettledEventInt
     public function getPaymentSource(): PaymentSourceInterface
     {
         return $this->paymentSource;
-    }
-
-    /**
-     * @return PaymentMethodInterface
-     */
-    public function getPaymentMethod(): PaymentMethodInterface
-    {
-        return $this->paymentMethod;
     }
 }

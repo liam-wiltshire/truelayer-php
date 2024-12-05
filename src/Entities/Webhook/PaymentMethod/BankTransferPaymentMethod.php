@@ -42,18 +42,18 @@ class BankTransferPaymentMethod extends Entity implements BankTransferPaymentMet
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getProviderId(): ?string
+    public function getProviderId(): string
     {
-        return $this->providerId ?? null;
+        return $this->providerId;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getSchemeId(): ?string
+    public function getSchemeId(): string
     {
-        return $this->schemeId ?? null;
+        return $this->schemeId;
     }
 }

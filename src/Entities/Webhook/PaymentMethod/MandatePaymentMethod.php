@@ -20,17 +20,11 @@ class MandatePaymentMethod extends Entity implements MandatePaymentMethodInterfa
     protected string $mandateId;
 
     /**
-     * @var string
-     */
-    protected string $reference;
-
-    /**
      * @var string[]
      */
     protected array $arrayFields = [
         'type',
         'mandate_id',
-        'reference',
     ];
 
     /**
@@ -47,13 +41,5 @@ class MandatePaymentMethod extends Entity implements MandatePaymentMethodInterfa
     public function getMandateId(): string
     {
         return $this->mandateId;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getReference(): ?string
-    {
-        return $this->reference ?? null;
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use TrueLayer\Constants\DateTime;
 use TrueLayer\Interfaces\AccountIdentifier\ScanDetailsInterface;
-use TrueLayer\Interfaces\Payout\Beneficiary\ExternalAccountBeneficiaryInterface;
-use TrueLayer\Interfaces\Payout\Beneficiary\PaymentSourceBeneficiaryInterface;
+use TrueLayer\Interfaces\Beneficiary\ExternalAccountBeneficiaryInterface;
+use TrueLayer\Interfaces\Payout\PaymentSourceBeneficiaryInterface;
 use TrueLayer\Interfaces\Payout\PayoutAuthorizedInterface;
 use TrueLayer\Interfaces\Payout\PayoutExecutedInterface;
 use TrueLayer\Interfaces\Payout\PayoutFailedInterface;
@@ -86,11 +86,4 @@ function assertPayoutCommon(PayoutRetrievedInterface $payout)
     \expect($beneficiary->getReference())->toBe('Test reference');
     \expect($beneficiary->getPaymentSourceId())->toBe('source1');
     \expect($beneficiary->getUserId())->toBe('user1');
-});
-
-\it('retrieves the payout metadata', function () {
-    /** @var PayoutExecutedInterface $payout */
-    $payout = \client(PayoutResponse::executedWithMetadata())->getPayout('1');
-
-    \expect($payout->getMetadata())->toBe(['foo' => 'bar']);
 });

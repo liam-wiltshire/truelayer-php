@@ -9,11 +9,12 @@ use TrueLayer\Exceptions\ApiRequestJsonSerializationException;
 use TrueLayer\Exceptions\ApiResponseUnsuccessfulException;
 use TrueLayer\Exceptions\InvalidArgumentException;
 use TrueLayer\Exceptions\SignerException;
+use TrueLayer\Interfaces\Beneficiary\BeneficiaryInterface;
+use TrueLayer\Interfaces\Beneficiary\ExternalAccountBeneficiaryInterface;
 use TrueLayer\Interfaces\HasApiFactoryInterface;
-use TrueLayer\Interfaces\Payout\Beneficiary\BeneficiaryInterface;
+use TrueLayer\Interfaces\Payout\PayoutBeneficiaryInterface;
 use TrueLayer\Interfaces\Payout\PayoutCreatedInterface;
 use TrueLayer\Interfaces\Payout\PayoutRequestInterface;
-use TrueLayer\Interfaces\Payout\Scheme\SchemeSelectionInterface;
 use TrueLayer\Interfaces\RequestOptionsInterface;
 use TrueLayer\Traits\ProvidesApiFactory;
 
@@ -37,19 +38,9 @@ final class PayoutRequest extends Entity implements PayoutRequestInterface, HasA
     protected string $currency;
 
     /**
-     * @var BeneficiaryInterface
+     * @var PayoutBeneficiaryInterface
      */
-    protected BeneficiaryInterface $beneficiary;
-
-    /**
-     * @var SchemeSelectionInterface
-     */
-    protected SchemeSelectionInterface $schemeSelection;
-
-    /**
-     * @var array<string, string>
-     */
-    protected array $metadata;
+    protected PayoutBeneficiaryInterface $beneficiary;
 
     /**
      * @var RequestOptionsInterface|null
@@ -61,7 +52,6 @@ final class PayoutRequest extends Entity implements PayoutRequestInterface, HasA
      */
     protected array $casts = [
         'beneficiary' => BeneficiaryInterface::class,
-        'scheme_selection' => SchemeSelectionInterface::class,
     ];
 
     /**
@@ -72,8 +62,6 @@ final class PayoutRequest extends Entity implements PayoutRequestInterface, HasA
         'amount_in_minor',
         'currency',
         'beneficiary',
-        'scheme_selection',
-        'metadata',
     ];
 
     /**
@@ -113,39 +101,13 @@ final class PayoutRequest extends Entity implements PayoutRequestInterface, HasA
     }
 
     /**
-     * @param BeneficiaryInterface $beneficiary
+     * @param ExternalAccountBeneficiaryInterface $beneficiary
      *
      * @return PayoutRequestInterface
      */
-    public function beneficiary(BeneficiaryInterface $beneficiary): PayoutRequestInterface
+    public function beneficiary(PayoutBeneficiaryInterface $beneficiary): PayoutRequestInterface
     {
         $this->beneficiary = $beneficiary;
-
-        return $this;
-    }
-
-    /**
-     * @param SchemeSelectionInterface $schemeSelection
-     *
-     * @return PayoutRequestInterface
-     */
-    public function schemeSelection(SchemeSelectionInterface $schemeSelection): PayoutRequestInterface
-    {
-        $this->schemeSelection = $schemeSelection;
-
-        return $this;
-    }
-
-    /**
-     * @param array<string, string> $metadata
-     *
-     * @return PayoutRequestInterface
-     */
-    public function metadata(array $metadata): PayoutRequestInterface
-    {
-        if (!empty($metadata)) {
-            $this->metadata = $metadata;
-        }
 
         return $this;
     }
@@ -163,10 +125,10 @@ final class PayoutRequest extends Entity implements PayoutRequestInterface, HasA
     }
 
     /**
+     * @throws ApiRequestJsonSerializationException
      * @throws ApiResponseUnsuccessfulException
      * @throws InvalidArgumentException
      * @throws SignerException
-     * @throws ApiRequestJsonSerializationException
      *
      * @return PayoutCreatedInterface
      */

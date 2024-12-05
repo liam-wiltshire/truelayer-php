@@ -35,17 +35,6 @@ interface PaymentsApiInterface
     public function retrieve(string $id): array;
 
     /**
-     * @param string $id
-     *
-     * @throws SignerException
-     * @throws ApiRequestJsonSerializationException
-     * @throws ApiResponseUnsuccessfulException
-     *
-     * @return void
-     */
-    public function cancel(string $id): void;
-
-    /**
      * @param string  $id
      * @param mixed[] $authorizationFlowRequest
      *

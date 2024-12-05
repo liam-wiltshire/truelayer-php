@@ -12,11 +12,4 @@ interface PayoutExecutedEventInterface extends PayoutEventInterface
      * @return \DateTimeInterface
      */
     public function getExecutedAt(): \DateTimeInterface;
-
-    /**
-     * Get the unique identifier for the scheme.
-     *
-     * @return string|null
-     */
-    public function getSchemeId(): ?string;
 }

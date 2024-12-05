@@ -14,11 +14,6 @@ class PayoutExecutedEvent extends PayoutEvent implements PayoutExecutedEventInte
     protected \DateTimeInterface $executedAt;
 
     /**
-     * @var string
-     */
-    protected string $schemeId;
-
-    /**
      * @return mixed[]
      */
     protected function casts(): array
@@ -35,7 +30,6 @@ class PayoutExecutedEvent extends PayoutEvent implements PayoutExecutedEventInte
     {
         return \array_merge(parent::arrayFields(), [
             'executed_at',
-            'scheme_id',
         ]);
     }
 
@@ -45,13 +39,5 @@ class PayoutExecutedEvent extends PayoutEvent implements PayoutExecutedEventInte
     public function getExecutedAt(): \DateTimeInterface
     {
         return $this->executedAt;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSchemeId(): ?string
-    {
-        return $this->schemeId ?? null;
     }
 }

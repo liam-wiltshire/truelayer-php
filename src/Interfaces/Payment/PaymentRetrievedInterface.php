@@ -83,9 +83,4 @@ interface PaymentRetrievedInterface extends ArrayableInterface
      * @return bool
      */
     public function isSettled(): bool;
-
-    /**
-     * @return PaymentRetrievedInterface
-     */
-    public function cancel(): PaymentRetrievedInterface;
 }

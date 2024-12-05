@@ -39,7 +39,6 @@ use TrueLayer\Tests\Integration\Mocks\WebhookPayload;
     \expect($event)->toBeInstanceOf(RefundExecutedEventInterface::class);
     \expect($event->getExecutedAt()->format(DateTime::FORMAT))->toBe('2021-12-25T15:00:00.000000Z');
     \expect($event->getType())->toBe('refund_executed');
-    \expect($event->getSchemeId())->toBe('faster_payments_service');
 });
 
 \it('handles refund failed', function () {
@@ -55,20 +54,3 @@ use TrueLayer\Tests\Integration\Mocks\WebhookPayload;
     \expect($event->getFailureReason())->toBe('insufficient_funds');
     \expect($event->getType())->toBe('refund_failed');
 });
-
-\it('handles refund webhook metadata', function (string $body, array $metadata) {
-    /** @var RefundEventInterface $event */
-    $event = null;
-
-    \webhook($body)->handler(function (RefundEventInterface $evt) use (&$event) {
-        $event = $evt;
-    })->execute();
-
-    \expect($event)->toBeInstanceOf(RefundEventInterface::class);
-    \expect($event->getMetadata())->toBe($metadata);
-})->with([
-    'executed, no metadata' => [WebhookPayload::refundExecuted(), []],
-    'executed, with metadata' => [WebhookPayload::refundExecutedWithMetadata(), ['foo' => 'bar']],
-    'failed, no metadata' => [WebhookPayload::refundFailed(), []],
-    'failed, with metadata' => [WebhookPayload::refundFailedWithMetadata(), ['foo' => 'bar']],
-]);
