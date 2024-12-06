@@ -57,6 +57,7 @@ class PaymentRetrieved extends Entity implements PaymentRetrievedInterface
     protected array $casts = [
         'payment_method' => PaymentMethodInterface::class,
         'created_at' => \DateTimeInterface::class,
+        'creditable_at' => \DateTimeInterface::class,
     ];
 
     /**
@@ -71,6 +72,7 @@ class PaymentRetrieved extends Entity implements PaymentRetrievedInterface
         'metadata',
         'user.id' => 'user_id',
         'payment_method',
+        'creditable_at',
     ];
 
     /**
@@ -128,6 +130,11 @@ class PaymentRetrieved extends Entity implements PaymentRetrievedInterface
     {
         return $this->createdAt;
     }
+
+    public function getCreditableAt(): ?\DateTimeInterface
+    {
+        return $this->creditableAt ?? null;
+    }    
 
     /**
      * @return string
