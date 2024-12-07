@@ -52,6 +52,11 @@ class PaymentRetrieved extends Entity implements PaymentRetrievedInterface
     protected \DateTimeInterface $createdAt;
 
     /**
+     * @var \DateTimeInterface|null
+     */
+    protected ?\DateTimeInterface $creditableAt;
+
+    /**
      * @var class-string[]
      */
     protected array $casts = [
